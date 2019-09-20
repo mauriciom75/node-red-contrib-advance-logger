@@ -4,7 +4,7 @@ module.exports = function (RED) {
   var util = require("util");
   require('winston-daily-rotate-file');
 
-  function AdvanceLoggerNode(config) {
+  function RotateLoggerNodeWins3(config) {
     var winston = require('winston');
     winston.handleExceptions(new winston.transports.File({filename: 'exceptions.log'}));
     RED.nodes.createNode(this, config);
@@ -142,5 +142,5 @@ module.exports = function (RED) {
     RED.comms.publish("debug", msg);
   }
 
-  RED.nodes.registerType("rotate-logger-wins3", AdvanceLoggerNode);
+  RED.nodes.registerType("rotate-logger-wins3", RotateLoggerNodeWins3);
 };
