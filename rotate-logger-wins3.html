@@ -1,5 +1,5 @@
 <script type="text/javascript">
-  RED.nodes.registerType('rotate-logger', {
+  RED.nodes.registerType('rotate-logger-wins3', {
     category: 'output',
     color: '#B2EBF2',
     defaults: {
@@ -7,7 +7,7 @@
         value: ""
       },
       filename: {
-        value: "node-red.log",
+        value: "application-%DATE%.log",
         required: true
       },
       complete: {
@@ -15,9 +15,6 @@
         required: true
       },
       console: {
-        value: false
-      },
-      file: {
         value: false
       },
       debug: {
@@ -30,12 +27,12 @@
         value: "info",
         required: true
       },
-      prefix: {
-        value: "/home/airkjh/.node-red/logs/Log-",
+      datePattern: {
+        value: "yyyy-MM-dd",
         required: true
       },
-      datePattern: {
-        value: "YYYY-MM-DD.",
+      maxFiles: {
+        value: "7d",
         required: true
       }
     },
@@ -44,7 +41,7 @@
     icon: "log.png",
     align: "right",
     label: function () {
-      return this.name || "rotate-logger";
+      return this.name || "rotate-log-w3";
     },
     oneditprepare: function () {
       $("#node-input-typed-complete").typedInput({
@@ -96,12 +93,16 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
-        <label for="node-input-prefix" style="width:28%;">Prefix</label>
-        <input type="text" id="node-input-prefix" placeholder="Log-">
+        <label for="node-input-filename" style="width:28%;">filename</label>
+        <input type="text" id="node-input-prefix" placeholder="application-%DATE%.log">
     </div>
     <div class="form-row">
         <label for="node-input-datePattern" style="width: 28%;">Date Pattern</label>
-        <input type="text" id="node-input-datePattern" placeholder="YYYY-MM-DD.">
+        <input type="text" id="node-input-datePattern" placeholder="yyyy-MM-dd">
+    </div>
+    <div class="form-row">
+        <label for="node-input-maxFiles" style="width: 28%;">Max Files</label>
+        <input type="text" id="node-input-maxFiles" placeholder="7d">
     </div>
     <div class="form-row" style="border: 1px solid black; padding: 5px;">
         <label style="width: 28%;"><i class="fa fa-rocket"></i>Log transports</label>

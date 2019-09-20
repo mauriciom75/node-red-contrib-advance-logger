@@ -1,13 +1,19 @@
 # node-red-contrib-rotate-logger
 
-This project is forked from [`Advance Logger`](https://www.npmjs.com/package/node-red-contrib-advance-logger)
+This project is forked from [`Rotate Logger`](https://github.com/airkjh/node-red-contrib-advance-logger)
 
-And using `winston.DailyRotateFile` I changed the original file logging feature to rotate file logging with date pattern
+I chaged for support winston:3.2.1 and winston-daily-rotate-file:4.1.0 (2019-09-20)
 
-This project is for personal purpose so I recommend not to use this module in your production environment
+to support a configuration similar to:
 
-Please check the original project for details
+```
+  var transport = new (winston.transports.DailyRotateFile)({
+    filename: '/log/application-%DATE%.log',
+    datePattern: 'YYYY-MM-DD-HH',
+    zippedArchive: true,
+    maxSize: '20m',
+    maxFiles: '14d'
+  });
+```
 
-## License
 
-MIT © `JaeHyuk Kim`

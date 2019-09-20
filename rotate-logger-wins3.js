@@ -9,18 +9,20 @@ module.exports = function (RED) {
     winston.handleExceptions(new winston.transports.File({filename: 'exceptions.log'}));
     RED.nodes.createNode(this, config);
     var logger = null;
-    var prefix = config.prefix;
+    var filename = config.filename;
     var fileLog = true;
     var consoleLog = config.console;
     var debugLog = config.debug;
     var complete = config.complete;
-    var datePattern = config.datePattern || 'yyyy-MM-dd.';
+    var datePattern = config.datePattern || 'yyyy-MM-dd';
     var logType = config.logtype;
+    var maxFiles = config.maxFiles;
     var transports = [];
 
     transports.push(new (winston.transports.DailyRotateFile)({
-        filename: prefix,
+        filename: filename,
         datePattern: datePattern,
+        maxFiles: maxFiles,
         prepend: true,
         json: false
       })
@@ -33,7 +35,7 @@ module.exports = function (RED) {
       }));
     }
 
-    logger = new winston.Logger({
+    logger = new winston.createLogger({
       exitOnError: false,
       level: logType,
       transports: transports
@@ -140,5 +142,5 @@ module.exports = function (RED) {
     RED.comms.publish("debug", msg);
   }
 
-  RED.nodes.registerType("rotate-logger", AdvanceLoggerNode);
+  RED.nodes.registerType("rotate-logger-wins3", AdvanceLoggerNode);
 };
